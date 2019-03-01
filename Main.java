@@ -9,7 +9,7 @@ public class Main {
 		
 		// section 1
 		// grab the compressed data file
-		InputStream stream = new FileInputStream("C:\\Users\\matthew\\eclipse-workspace\\My A1\\src\\compressed.dat");
+		InputStream stream = new FileInputStream("compressed.dat");
 		// decode the  file and output it
 		Decoder decoder = new Decoder(stream);
 		decoder.decode("uncompressed.dat");
