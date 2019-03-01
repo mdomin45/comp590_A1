@@ -1,13 +1,9 @@
 package io;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,10 +27,10 @@ public class Encoder {
 		}
 		
 		int[] counts = new int[256];
-		BigDecimal[] Counts = new BigDecimal[256];
+		Double[] Counts = new Double[256];
 		int total = stream.available();
 		_read = new int[total];
-		BigDecimal Total = new BigDecimal(total);
+		Double Total = (double) total;
 		
 		i = 0;
 		while (i < total) {
@@ -49,13 +45,13 @@ public class Encoder {
 		
 		i = 0;
 		while (i < 256) {
-			Counts[i] = new BigDecimal(counts[i]);
+			Counts[i] = new Double(counts[i]);
 			i++;
 		}
 		
 		i = 0;
 		while (i < 256) {
-			_nodes.get(i).set_probability(Counts[i].divide(Total, 50, RoundingMode.HALF_UP));
+			_nodes.get(i).set_probability(Counts[i]/Total);
 			i++;
 		}
 		
@@ -84,7 +80,7 @@ public class Encoder {
 					left,
 					right,
 					Math.max(left.get_height(), right.get_height()) + 1,
-					left.get_probability().add(right.get_probability(), new MathContext(50, RoundingMode.HALF_UP)));
+					left.get_probability() + right.get_probability());
 			_nodes.add(current);
 			// update the attributes of the left and right children
 			left.set_parent(current);
@@ -133,7 +129,7 @@ public class Encoder {
 		float entropy = 0;		
 		i = 0;
 		while (i < 256) {
-			if (_symbols.get(i).get_probability().compareTo(new BigDecimal(0)) == 1) {
+			if (_symbols.get(i).get_probability().compareTo(new Double(0)) == 1) {
 				entropy += _symbols.get(i).get_probability().floatValue() * _symbols.get(i).get_length();
 			}
 			i++;

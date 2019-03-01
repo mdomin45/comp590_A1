@@ -1,7 +1,5 @@
 package io;
 
-import java.math.BigDecimal;
-
 public class Node extends Symbol{
 	// different nodes
 	private Node _parent;
@@ -14,7 +12,7 @@ public class Node extends Symbol{
 	private int _height;
 	
 	// general constructor
-	public Node(Node left, Node right, int height, BigDecimal n) {
+	public Node(Node left, Node right, int height, double d) {
 		// call super constructor
 		super();
 		
@@ -24,7 +22,7 @@ public class Node extends Symbol{
 		_height = height;
 		_hasParent = false;
 		_isLeaf = false;
-		this.set_probability(n);
+		this.set_probability(d);
 	}
 	
 	// root constructor
